@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PegawaiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/ubahdata', [PegawaiController::class,'tambah']);
+
+Route::get('/datapegawai', [PegawaiController::class,'index']);
+
+Route::get('/simpandata', [PegawaiController::class,'simpan']);
+
+Route::resource('pegawai',App\Http\Controllers\PegawaiController::class);
