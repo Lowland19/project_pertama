@@ -1,6 +1,8 @@
 @extends('layouts.app')
 @section('content')
+
 <div class="container mt-5 mb-5">
+    </nav>
     <table class="table">
         <tr>
             <th>ID</th>
@@ -10,7 +12,6 @@
             <th>Email</th>
             <th>Jabatan</th>
             <th>Departemen</th>
-            <th>foto</th>
         </tr>
         @foreach($Pegawai as $pegawai)
         <tr>
@@ -22,24 +23,17 @@
                 <td> {{$pegawai->jabatan}}</td>
                 <td> {{$pegawai->departemen}}</td>
                 <td>
-                    @if($pegawai->foto)
-    <img src="{{ asset('storage/'.$pegawai->foto) }}" alt="Foto Pegawai" width="120" class="img-thumbnail">
-@else
-    <img src="{{ asset('images/default.png') }}" alt="Default" width="120" class="img-thumbnail">
-@endif
-                </td>
-                <td>
-                <form action="{{ route('pegawai.hapus', $pegawai->id)}}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                    <form action="{{ route('pegawai.restore', $pegawai->id) }}" method="POST">
                     @csrf
-                    @method('DELETE')
-                    <button class="btn btn-danger">Hapus</button>
-                </form>
-                <form action="{{ route('pegawai.edit', $pegawai->id)}}">
-                    <button class="btn btn-warning">Edit</button>
-                </form>
+                    <button type="submit" class="btn btn-success btn-sm"
+                        onclick="return confirm('Yakin ingin mengembalikan data ini?')">
+                        Restore
+                    </button>
+                    </form>
                 </td>
         </tr>
         @endforeach
     </table>
-
+    <a href="/datapegawai" class="btn btn-primary">Kembali</a>
+</div>
 @endsection
